@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
+        padding: EdgeInsets.all(24),
         child: Column(
           children: [
             SizedBox(
@@ -28,10 +30,21 @@ class _HomeState extends State<Home> {
                 Expanded(
                     child: TextFormField(
                   controller: firstController,
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                  ],
                 )),
+                SizedBox(
+                  width: 25,
+                ),
                 Expanded(
                     child: TextFormField(
                   controller: secondController,
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                  ],
                 ))
               ],
             ),
@@ -39,6 +52,7 @@ class _HomeState extends State<Home> {
               height: 100,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
                     onPressed: () {
@@ -65,7 +79,18 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 100,
             ),
-            Text(output)
+            Container(
+                height: 50,
+                width: 1000,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(border: Border.all()),
+                child: output.trim().isEmpty
+                    ? Text(
+                        "output",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    : Text(output))
           ],
         ),
       ),
